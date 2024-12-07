@@ -17,16 +17,19 @@ const SignUpPage = () => {
       setError(null);
 
       // Send POST request to the backend to create a new user
-      await axios.post('http://localhost:5010/api/auth/signup', {
+      const response = await axios.post('http://localhost:5010/api/auth/signup', {
         name,
         email,
         password,
       });
 
+      console.log(response)
+
       // Redirect to login page after successful sign-up
       navigate('/login');
     } catch (err) {
       // Handle error from the server and display it
+      console.log(err)
       const errorMessage = err.response?.data?.message || 'Error during sign-up. Please try again.';
       setError(errorMessage);
     }

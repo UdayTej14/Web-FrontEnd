@@ -2,12 +2,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {useAuth} from '../context/AuthContext'
+import { IoStarSharp } from "react-icons/io5";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false); // State to manage dropdown visibility
   const [searchQuery, setSearchQuery] = useState(''); // State to manage search input
   const [searchResults, setSearchResults] = useState([]); // State to store search results
   const navigate = useNavigate();
+
+  const {user, logout} = useAuth()
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen); // Toggle dropdown visibility
@@ -17,7 +21,7 @@ const NavBar = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.get(`http://localhost:5010/api/recipes/search`, {
+      const response = await axios.get(`http://localhost:5010/api/recipes/recipe/search`, {
         params: { query: searchQuery }
       });
       setSearchResults(response.data);
@@ -52,8 +56,8 @@ const NavBar = () => {
 </form>
 
       <div className="flex items-center">
-        <Link to="/signup" className="text-white mx-4">Sign Up</Link>
-        <Link to="/login" className="text-white mx-4">Login</Link>
+        {user ? <button onClick={logout} className="text-white mx-4 bg-transparent outline-none">Logout</button> : <><Link to="/signup" className="text-white mx-4">Sign Up</Link>
+          <Link to="/login" className="text-white mx-4">Login</Link><></></>}
 
         <div className="relative">
           {/* Hamburger icon */}
