@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const { login } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,13 +19,12 @@ const LoginPage = () => {
       setError(null);
 
       // Send POST request to the backend to authenticate the user
-      const response = await axios.post('http://localhost:5010/api/auth/login', {
-        email,
-        password,
-      });
+      // const response = await axios.post('http://localhost:5010/api/auth/login', {
+      //   email,
+      //   password,
+      // });
 
-      // Store the JWT token in local storage
-      localStorage.setItem('token', response.data.token);
+      await login(email, password);
 
       // Redirect to the homepage upon successful login
       navigate('/');
