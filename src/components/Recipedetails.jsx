@@ -2,41 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 
-const Rating = ({ rating }) => {
-  // Define the color logic based on the rating value
-  const getColor = (rating) => {
-    if (rating >= 4) return "green"; // High rating (4 and above)
-    if (rating >= 2) return "orange"; // Medium rating (2 - 3.9)
-    return "red"; // Low rating (below 2)
-  };
-
-  // Calculate full, half, and empty stars
-  const fullStars = Math.floor(rating); // Full stars
-  const halfStar = rating % 1 >= 0.5 ? 1 : 0; // Half star
-  const emptyStars = 5 - fullStars - halfStar; // Empty stars
-
-  return (
-    <div className='flex'>
-      {/* Render full stars */}
-      {[...Array(fullStars)].map((_, index) => (
-        <FaStar key={`full-${index}`} color={getColor(rating)} />
-      ))}
-
-      {/* Render half star if applicable */}
-      {halfStar === 1 && (
-        <FaStarHalfAlt key="half" color={getColor(rating)} />
-      )}
-
-      {/* Render empty stars */}
-      {[...Array(emptyStars)].map((_, index) => (
-        <FaRegStar key={`empty-${index}`} color={getColor(rating)} />
-      ))}
-    </div>
-  );
-};
- 
 const RecipeDetails = () => {
    const { id } = useParams();
    const [recipe, setRecipe] = useState(null);
@@ -79,7 +45,7 @@ const RecipeDetails = () => {
                   <h3 className="text-xl font-semibold mb-2">Ingredients:</h3>
                   <ul className="list-disc pl-6 mb-4">
                      {recipe.ingredients.map((ingredient, index) => (
-                        <li key={index} >{`${ingredient.name}: ${ingredient.quantity} ${ingredient.measurementUnit}`}</li>
+                        <li key={index} className="text-white">{`${ingredient.name}: ${ingredient.quantity} ${ingredient.measurementUnit}`}</li>
                      ))}
                   </ul>
                </div>
@@ -88,7 +54,7 @@ const RecipeDetails = () => {
                   <h3 className="text-xl font-semibold mb-2">Instructions:</h3>
                   <ol className="list-decimal pl-6">
                      {recipe.instructions.map((step, index) => (
-                        <li key={index} >{step}</li>
+                        <li key={index} className="text-white">{step}</li>
                      ))}
                   </ol>
                </div>
@@ -99,9 +65,9 @@ const RecipeDetails = () => {
                      <h3 className="text-xl font-semibold mb-2">Comments:</h3>
                      <ul className="list-disc pl-6 mb-4">
                         {recipe.comments.map((comment, index) => (
-                           <li key={index} >
+                           <li key={index} className="text-white">
                               <p>{comment.content}</p> {/* Render only the content of each comment */}
-                              <small>Posted on: {new Date(comment.datePosted).toLocaleDateString()}</small>
+                              <small className="text-white">Posted on: {new Date(comment.datePosted).toLocaleDateString()}</small>
                            </li>
                         ))}
                      </ul>
@@ -112,8 +78,7 @@ const RecipeDetails = () => {
                {recipe.ratings && recipe.ratings.length > 0 && (
                   <div>
                      <h3 className="text-xl font-semibold mb-2">Ratings:</h3>
-                     <p>Average Rating: {(recipe.ratings.reduce((acc, rating) => acc + rating.score, 0) / recipe.ratings.length).toFixed(1)}</p>
-                     <Rating rating={(recipe.ratings.reduce((acc, rating) => acc + rating.score, 0) / recipe.ratings.length).toFixed(1)} />
+                     <p>Average Rating: {(recipe.ratings.reduce((acc, rating) => acc + rating, 0) / recipe.ratings.length).toFixed(1)}</p>
                   </div>
                )}
             </div>

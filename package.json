@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -14,10 +14,8 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "glob": "^9.3.5",
-    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.4.0",
     "react-router-dom": "^6.26.2",
     "react-scripts": "^5.0.1"
   },
