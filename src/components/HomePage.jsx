@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from './NavBar';
 
 const HomePage = () => {
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col">
       <Navbar /> {/* NavBar is fixed at the top */}
 
-      <div className="flex-grow flex flex-col items-center justify-start mt-16">
+      <div className="flex-grow flex flex-col items-center justify-start pt-20"> {/* Added pt-16 for spacing below the navbar */}
         <h1 className="text-4xl font-bold mb-4 text-center text-white">Welcome to the Cooking Blog!</h1>
         <p className="text-lg text-white mb-6 text-center">Discover a variety of delicious recipes.</p>
         
