@@ -46,14 +46,7 @@ const UserDashboard = () => {
     }));
   };
 
-  const handleIngredientChange = (index, field, value) => {
-    const updatedIngredients = [...newRecipe.ingredients];
-    updatedIngredients[index][field] = value;
-    setNewRecipe((prev) => ({
-      ...prev,
-      ingredients: updatedIngredients,
-    }));
-  };
+
 
   const addIngredientField = () => {
     setNewRecipe((prev) => ({

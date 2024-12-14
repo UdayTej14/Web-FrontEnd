@@ -13,25 +13,15 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // Reset error before making a new request
-      setError(null);
-
-      // Send POST request to the backend to authenticate the user
-      // const response = await axios.post('http://localhost:5010/api/auth/login', {
-      //   email,
-      //   password,
-      // });
-
-      await login(email, password);
-
-      // Redirect to the homepage upon successful login
-      navigate('/');
+      setError(null); // Reset any previous errors
+      await login(email, password); // Custom login function likely making an API call
+      navigate('/'); // Navigate to the homepage on success
     } catch (err) {
-      // Handle error from the server and display it
-      const errorMessage = err.response?.data?.message || 'Invalid email or password';
-      setError(errorMessage);
+      // Handle the specific error message from the server
+      const errorMessage = err.response?.data?.message || 'Something went wrong. Please try again.';
+      setError(errorMessage); // Update the error state
     }
   };
 

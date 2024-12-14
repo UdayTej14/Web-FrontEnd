@@ -38,21 +38,23 @@ export function AuthProvider({children}){
     setLoading(false); // Mark initialization as complete
 }, []);
 
-    const login = async (email, password) => {
-        try {
-            const response = await axios.post('http://localhost:5010/api/auth/login', {
-                email,
-                password,
-              });
-    
-              setUser(response.data.user)
-              // Store the JWT token in local storage
-          localStorage.setItem('token', response.data.token);
-        } catch(error)
-        {
-            console.error(error.message)
-        }
+const login = async (email, password) => {
+    try {
+        const response = await axios.post('http://localhost:5010/api/auth/login', {
+            email,
+            password,
+        });
+
+        // Set user and store token on successful login
+        setUser(response.data.user);
+        localStorage.setItem('token', response.data.token);
+    } catch (error) {
+        // Forward the error to the caller
+        const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
+        throw new Error(errorMessage); // Throw error to be handled in calling component
     }
+};
+
 
     const logout = () => {
         setUser()
